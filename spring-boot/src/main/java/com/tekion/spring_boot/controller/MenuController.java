@@ -1,31 +1,71 @@
 package com.tekion.spring_boot.controller;
 
 import com.tekion.spring_boot.model.MenuItem;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.tekion.spring_boot.service.MenuItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/entities")
 public class MenuController {
 
-    @GetMapping("/menu")
-    public List<MenuItem> getMenu() {
-        return Arrays.asList(
-            new MenuItem("Margherita Pizza", "Classic pizza with tomato sauce, mozzarella, and fresh basil", 12.99, "Main Course"),
-            new MenuItem("Caesar Salad", "Crisp romaine lettuce with parmesan cheese and croutons", 8.99, "Appetizer"),
-            new MenuItem("Grilled Salmon", "Fresh Atlantic salmon with lemon butter sauce and vegetables", 18.99, "Main Course"),
-            new MenuItem("Chicken Tikka Masala", "Tender chicken in creamy tomato curry sauce with basmati rice", 15.99, "Main Course"),
-            new MenuItem("Spaghetti Carbonara", "Classic Italian pasta with bacon, eggs, and parmesan", 14.99, "Main Course"),
-            new MenuItem("French Onion Soup", "Rich beef broth with caramelized onions and melted cheese", 7.99, "Appetizer"),
-            new MenuItem("Chocolate Lava Cake", "Warm chocolate cake with molten center, served with vanilla ice cream", 6.99, "Dessert"),
-            new MenuItem("Tiramisu", "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone", 7.99, "Dessert"),
-            new MenuItem("Mango Lassi", "Refreshing yogurt-based drink with fresh mango", 4.99, "Beverage"),
-            new MenuItem("Iced Coffee", "Cold brew coffee served over ice", 3.99, "Beverage")
-        );
+    private final MenuItemService menuItemService;
+
+    @Autowired
+    public MenuController(MenuItemService menuItemService) {
+        this.menuItemService = menuItemService;
+    }
+
+    // CREATE - POST /api/entities
+    @PostMapping
+    public ResponseEntity<MenuItem> createMenuItem(@RequestBody MenuItem menuItem) {
+        try {
+            MenuItem created = menuItemService.createMenuItem(menuItem);
+            return new ResponseEntity<>(created, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // READ ALL - GET /api/entities
+    @GetMapping
+    public ResponseEntity<List<MenuItem>> getAllMenuItems() {
+        List<MenuItem> items = menuItemService.getAllMenuItems();
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+
+    // READ ONE - GET /api/entities/{id}
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable Long id) {
+        return menuItemService.getMenuItemById(id)
+                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // UPDATE - PUT /api/entities/{id}
+    @PutMapping("/{id}")
+    public ResponseEntity<MenuItem> updateMenuItem(@PathVariable Long id, @RequestBody MenuItem menuItem) {
+        try {
+            MenuItem updated = menuItemService.updateMenuItem(id, menuItem);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // DELETE - DELETE /api/entities/{id}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMenuItem(@PathVariable Long id) {
+        try {
+            menuItemService.deleteMenuItem(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 
