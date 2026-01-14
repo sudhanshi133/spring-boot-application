@@ -25,7 +25,7 @@ refreshBtn.addEventListener('click', () => {
 // Add new menu item
 addItemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const menuItem = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
@@ -60,7 +60,7 @@ async function loadMenuItems() {
     try {
         const response = await fetch(API_URL);
         const items = await response.json();
-        
+
         if (items.length === 0) {
             menuItemsContainer.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No menu items yet. Add your first item above!</p>';
             return;
@@ -93,13 +93,13 @@ async function openEditModal(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
         const item = await response.json();
-        
+
         document.getElementById('editId').value = item.id;
         document.getElementById('editName').value = item.name;
         document.getElementById('editDescription').value = item.description;
         document.getElementById('editPrice').value = item.price;
         document.getElementById('editCategory').value = item.category;
-        
+
         editModal.style.display = 'block';
     } catch (error) {
         console.error('Error loading menu item:', error);
@@ -125,7 +125,7 @@ window.addEventListener('click', (e) => {
 // Update menu item
 editItemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const id = document.getElementById('editId').value;
     const menuItem = {
         name: document.getElementById('editName').value,
@@ -155,4 +155,37 @@ editItemForm.addEventListener('submit', async (e) => {
         showToast('Error updating menu item!', 'error');
     }
 });
+
+// Delete menu item
+async function deleteMenuItem(id) {
+    if (!confirm('Are you sure you want to delete this menu item?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            showToast('Menu item deleted successfully!', 'success');
+            loadMenuItems();
+        } else {
+            showToast('Failed to delete menu item!', 'error');
+        }
+    } catch (error) {
+        console.error('Error deleting menu item:', error);
+        showToast('Error deleting menu item!', 'error');
+    }
+}
+
+// Show toast notification
+function showToast(message, type = 'success') {
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
 
