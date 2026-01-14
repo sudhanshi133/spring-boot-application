@@ -76,17 +76,54 @@ header h1 {
 }
 
 .add-section, .menu-section {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.add-section {
+    animation-delay: 0.1s;
+}
+
+.menu-section {
+    animation-delay: 0.2s;
 }
 
 .add-section h2, .menu-section h2 {
-    color: #333;
-    margin-bottom: 20px;
+    color: #1e293b;
+    margin-bottom: 25px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-section h2::before {
+    content: '➕';
     font-size: 1.5rem;
+}
+
+.menu-section h2::before {
+    content: '🍽️';
+    font-size: 1.5rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .form-row {
@@ -111,47 +148,78 @@ header h1 {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    padding: 10px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #7e22ce;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(126, 34, 206, 0.1);
+    transform: translateY(-1px);
 }
 
 .btn {
-    padding: 12px 24px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #7e22ce 0%, #6366f1 100%);
     color: white;
+    box-shadow: 0 4px 15px rgba(126, 34, 206, 0.3);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(126, 34, 206, 0.5);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
-    background: #6c757d;
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
     color: white;
+    box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
 }
 
 .btn-secondary:hover {
-    background: #5a6268;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(100, 116, 139, 0.5);
 }
 
 .section-header {
@@ -168,15 +236,35 @@ header h1 {
 }
 
 .menu-item {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    border-radius: 10px;
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(126, 34, 206, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #7e22ce, #6366f1, #ec4899);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.menu-item:hover::before {
+    transform: scaleX(1);
 }
 
 .menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(126, 34, 206, 0.2);
+    border-color: rgba(126, 34, 206, 0.3);
 }
 
 .menu-item-header {
@@ -187,22 +275,41 @@ header h1 {
 }
 
 .menu-item h3 {
-    color: #333;
-    font-size: 1.3rem;
-    margin-bottom: 5px;
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .menu-item p {
-    color: #666;
+    color: #64748b;
     margin-bottom: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: linear-gradient(135deg, #7e22ce, #6366f1);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
 }
 
 .price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #28a745;
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 15px;
+    display: inline-block;
 }
 
 .menu-item-actions {
@@ -212,31 +319,39 @@ header h1 {
 
 .btn-edit, .btn-delete {
     flex: 1;
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-edit {
-    background: #007bff;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
 }
 
 .btn-edit:hover {
-    background: #0056b3;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
 }
 
 .btn-delete {
-    background: #dc3545;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
+    box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
 }
 
 .btn-delete:hover {
-    background: #c82333;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
 }
 
 /* Modal Styles */
@@ -326,15 +441,44 @@ header h1 {
 footer {
     text-align: center;
     color: white;
-    margin-top: 30px;
-    padding: 20px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 12px;
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 footer p {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(126, 34, 206, 0.3);
+    border-radius: 50%;
+    border-top-color: #7e22ce;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+    background: rgba(126, 34, 206, 0.3);
+    color: white;
 }
 
 /* Responsive Design */
