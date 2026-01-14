@@ -10,11 +10,33 @@ const editModal = document.getElementById('editModal');
 const closeModal = document.querySelector('.close');
 const cancelEditBtn = document.getElementById('cancelEdit');
 const toast = document.getElementById('toast');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.querySelector('.theme-icon');
+
+// Theme Toggle Functionality
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
 
 // Load menu items on page load
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     loadMenuItems();
 });
+
+// Theme toggle event
+themeToggle.addEventListener('click', toggleTheme);
 
 // Refresh button
 refreshBtn.addEventListener('click', () => {

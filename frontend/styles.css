@@ -490,11 +490,12 @@ header h1 {
 
 footer {
     text-align: center;
-    color: #718096;
+    color: var(--text-tertiary);
     margin-top: 50px;
     padding: 30px 20px;
-    background: white;
-    border-top: 1px solid #e2e8f0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 footer p {
@@ -509,8 +510,12 @@ html {
 
 /* Selection color */
 ::selection {
-    background: #bee3f8;
-    color: #2d3748;
+    background: var(--accent-light);
+    color: var(--text-primary);
+}
+
+body.dark-mode ::selection {
+    background: rgba(99, 179, 237, 0.3);
 }
 
 /* Empty State */
@@ -518,9 +523,9 @@ html {
     text-align: center;
     padding: 80px 20px;
     grid-column: 1/-1;
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
 }
 
 .empty-state-icon {
@@ -530,7 +535,7 @@ html {
 }
 
 .empty-state p {
-    color: #718096;
+    color: var(--text-tertiary);
     font-size: 1rem;
     margin: 0;
 }
@@ -543,6 +548,14 @@ html {
 
     header h1 {
         font-size: 2rem;
+    }
+
+    .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
     }
 
     .form-row {
@@ -573,6 +586,16 @@ html {
 @media (max-width: 480px) {
     header h1 {
         font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
     }
 
     .menu-item-actions {
