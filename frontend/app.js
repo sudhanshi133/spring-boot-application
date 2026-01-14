@@ -62,7 +62,12 @@ async function loadMenuItems() {
         const items = await response.json();
 
         if (items.length === 0) {
-            menuItemsContainer.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No menu items yet. Add your first item above!</p>';
+            menuItemsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🍽️</div>
+                    <p>No menu items yet. Add your first delicious item above!</p>
+                </div>
+            `;
             return;
         }
 

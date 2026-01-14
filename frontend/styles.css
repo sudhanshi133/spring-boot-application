@@ -243,7 +243,15 @@ header h1 {
     border: 2px solid rgba(126, 34, 206, 0.1);
     position: relative;
     overflow: hidden;
+    animation: fadeInUp 0.6s ease-out backwards;
 }
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+.menu-item:nth-child(5) { animation-delay: 0.5s; }
+.menu-item:nth-child(6) { animation-delay: 0.6s; }
 
 .menu-item::before {
     content: '';
@@ -552,10 +560,43 @@ html {
     color: white;
 }
 
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    grid-column: 1/-1;
+}
+
+.empty-state-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Refresh Button Animation */
+.btn-secondary:active {
+    animation: rotate 0.6s ease-in-out;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
     }
 
     .form-row {
@@ -564,6 +605,36 @@ html {
 
     .menu-grid {
         grid-template-columns: 1fr;
+    }
+
+    .add-section, .menu-section {
+        padding: 25px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 25px;
+        margin: 10% auto;
+    }
+
+    .toast {
+        right: 15px;
+        top: 15px;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .menu-item-actions {
+        flex-direction: column;
+    }
+
+    .btn-edit, .btn-delete {
+        width: 100%;
     }
 }
 
