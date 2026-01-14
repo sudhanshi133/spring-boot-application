@@ -11,6 +11,9 @@
         <header>
             <h1>🍽️ Restaurant Menu Manager</h1>
             <p class="subtitle">Spring Boot + AOP Demo Application</p>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
         </header>
 
         <!-- Add New Menu Item Form -->
@@ -19,13 +22,19 @@
             <form id="addItemForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name">Item Name</label>
+                        <input type="text" id="name" name="name" placeholder="e.g., Margherita Pizza" required>
                     </div>
                     <div class="form-group">
-                        <label for="category">Category *</label>
+                        <label for="price">Price</label>
+                        <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="category">Category</label>
                         <select id="category" name="category" required>
-                            <option value="">Select Category</option>
+                            <option value="">Select a category</option>
                             <option value="Appetizer">Appetizer</option>
                             <option value="Main Course">Main Course</option>
                             <option value="Dessert">Dessert</option>
@@ -33,13 +42,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="price">Price ($) *</label>
-                        <input type="number" id="price" name="price" step="0.01" min="0" required>
+                        <label for="description">Description</label>
+                        <input type="text" id="description" name="description" placeholder="Brief description" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description *</label>
-                    <textarea id="description" name="description" rows="2" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Add Menu Item</button>
             </form>
@@ -63,26 +68,30 @@
                 <h2>Edit Menu Item</h2>
                 <form id="editItemForm">
                     <input type="hidden" id="editId">
-                    <div class="form-group">
-                        <label for="editName">Name *</label>
-                        <input type="text" id="editName" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editName">Item Name</label>
+                            <input type="text" id="editName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPrice">Price</label>
+                            <input type="number" id="editPrice" step="0.01" min="0" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="editCategory">Category *</label>
-                        <select id="editCategory" required>
-                            <option value="Appetizer">Appetizer</option>
-                            <option value="Main Course">Main Course</option>
-                            <option value="Dessert">Dessert</option>
-                            <option value="Beverage">Beverage</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editPrice">Price ($) *</label>
-                        <input type="number" id="editPrice" step="0.01" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDescription">Description *</label>
-                        <textarea id="editDescription" rows="3" required></textarea>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCategory">Category</label>
+                            <select id="editCategory" required>
+                                <option value="Appetizer">Appetizer</option>
+                                <option value="Main Course">Main Course</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Beverage">Beverage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescription">Description</label>
+                            <input type="text" id="editDescription" required>
+                        </div>
                     </div>
                     <div class="modal-actions">
                         <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -97,8 +106,8 @@
     </div>
 
     <footer>
-        <p>💡 Check the backend console logs to see AOP (Aspect-Oriented Programming) in action!</p>
-        <p>Every service method call is being logged with execution time.</p>
+        <p><strong>Spring Boot + AOP Demo</strong></p>
+        <p>Check the backend console to see Aspect-Oriented Programming logging in action</p>
     </footer>
 
     <script src="app.js"></script>

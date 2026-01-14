@@ -82,8 +82,8 @@ async function loadMenuItems() {
                 <p>${item.description}</p>
                 <div class="price">$${item.price.toFixed(2)}</div>
                 <div class="menu-item-actions">
-                    <button class="btn-edit" onclick="openEditModal(${item.id})">✏️ Edit</button>
-                    <button class="btn-delete" onclick="deleteMenuItem(${item.id})">🗑️ Delete</button>
+                    <button class="btn-edit" onclick="openEditModal(${item.id})">Edit</button>
+                    <button class="btn-delete" onclick="deleteMenuItem(${item.id})">Delete</button>
                 </div>
             </div>
         `).join('');
