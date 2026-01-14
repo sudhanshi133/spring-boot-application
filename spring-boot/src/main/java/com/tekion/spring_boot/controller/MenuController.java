@@ -13,12 +13,8 @@ import java.util.List;
 @RequestMapping("/api/entities")
 public class MenuController {
 
-    private final MenuItemService menuItemService;
-
     @Autowired
-    public MenuController(MenuItemService menuItemService) {
-        this.menuItemService = menuItemService;
-    }
+    private MenuItemService menuItemService;
 
     // CREATE - POST /api/entities
     @PostMapping
